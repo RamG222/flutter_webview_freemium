@@ -3,6 +3,7 @@ import 'package:asdf/constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Homepage extends StatefulWidget {
@@ -60,6 +61,14 @@ class _HomepageState extends State<Homepage> {
                     onWebViewCreated: (WebViewController webViewController) {
                       this.webViewController = webViewController;
                     },
+                    navigationDelegate: (NavigationRequest request) {
+                      if (request.url.startsWith(url)) {
+                        return NavigationDecision.navigate;
+                      } else {
+                        _launchURL(request.url);
+                        return NavigationDecision.prevent;
+                      }
+                    },
                   )
                 else
                   const NoInternetWidget(),
@@ -98,6 +107,14 @@ class _HomepageState extends State<Homepage> {
                 ],
               ));
       return Future.value(true);
+    }
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }
