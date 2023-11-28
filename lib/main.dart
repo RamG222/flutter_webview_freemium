@@ -1,13 +1,31 @@
+import 'package:asdf/firebase_notification_api/firebase_notifications_api.dart';
+import 'package:asdf/firebase_options.dart';
 import 'package:asdf/homepage.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    setupPushNotifications();
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override

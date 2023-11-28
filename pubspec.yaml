@@ -17,12 +17,21 @@ dependencies:
   easy_splash_screen: ^1.0.4
   connectivity_plus: ^5.0.1
   url_launcher: ^6.0.0
+  firebase_core: ^2.21.0
+  firebase_messaging: ^14.7.3
+  flutter_local_notifications: ^16.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  
   flutter_lints: ^2.0.0
 
 flutter:
