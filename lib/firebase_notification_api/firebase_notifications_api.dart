@@ -20,31 +20,12 @@ void handleMessage(RemoteMessage? message) {
   if (message == null) {
     return;
   }
-
-  // navigatorKey.currentState?.pushNamed(routeName)
-}
-
-//
-//function for firebase and asking for persmission of notifications,
-void setupPushNotifications() async {
-  final fcm = FirebaseMessaging.instance;
-
-  await fcm.requestPermission();
-  final token = await fcm.getToken();
-  print("Token : $token");
-
-  fcm.subscribeToTopic("ALL");
-
-  FirebaseMessaging.onBackgroundMessage(handleBackgroudMessage);
-  initNotifications();
-  initLocalNotification();
 }
 
 Future initLocalNotification() async {
   const android = AndroidInitializationSettings('@drawable/ic_launcher');
   const iOS = DarwinInitializationSettings();
   const settings = InitializationSettings(android: android, iOS: iOS);
-// uncomment only if handleMessage function invoked
   await _localNotifications.initialize(settings,
       onDidReceiveNotificationResponse: (payload) {
     final message = RemoteMessage.fromMap(jsonDecode(payload as String));
@@ -59,7 +40,6 @@ Future initNotifications() async {
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
 
-  //uncomment if you want to use handleMessage function from earlier code
   FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
   FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
   FirebaseMessaging.onBackgroundMessage(handleBackgroudMessage);
@@ -83,4 +63,19 @@ Future initNotifications() async {
       payload: jsonEncode(message.toMap()),
     );
   });
+}
+
+//function for firebase and asking for persmission of notifications,
+void setupPushNotifications() async {
+  final fcm = FirebaseMessaging.instance;
+
+  await fcm.requestPermission();
+  final token = await fcm.getToken();
+  print("Token : $token");
+
+  fcm.subscribeToTopic("ALL");
+
+  FirebaseMessaging.onBackgroundMessage(handleBackgroudMessage);
+  initNotifications();
+  initLocalNotification();
 }

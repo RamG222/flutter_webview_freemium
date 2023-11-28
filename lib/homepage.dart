@@ -63,7 +63,7 @@ class _HomepageState extends State<Homepage> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        await launch('https://github.com/RamG222');
+                        await launch(shareURL);
                         Navigator.of(context).pop();
                       },
                       child: Text('Share'),
@@ -104,7 +104,7 @@ class _HomepageState extends State<Homepage> {
 
           //AppBar
           appBar: AppBar(
-            title: const Text('Flutter webview appBar'),
+            title: const Text(appbarTitle),
           ),
           //Floating refresh button
           floatingActionButton: FloatingActionButton(
