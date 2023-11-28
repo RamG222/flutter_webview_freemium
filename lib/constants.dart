@@ -1,1 +1,1 @@
-const url = "https://github.com/ramg222/";
+const url = "https://truegst.in";
