@@ -1,4 +1,5 @@
 import 'package:asdf/homepage.dart';
+import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,18 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromRGBO(174, 209, 230, 100)),
         useMaterial3: true,
       ),
-      home: const Homepage(),
+      home: EasySplashScreen(
+        navigator: const Homepage(),
+        logoWidth: 300,
+        logo: Image.asset('assets/splash.png'),
+        durationInSeconds: 4,
+        loadingText: const Text(
+          "Made by Ram Gupta!",
+          style: TextStyle(color: Colors.blueGrey),
+        ),
+        loaderColor: Colors.blue,
+        showLoader: true,
+      ),
     );
   }
 }
