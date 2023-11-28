@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:asdf/No_Internet_widget.dart';
 import 'package:asdf/constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -39,10 +42,60 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      // ignore: deprecated_member_use
       child: WillPopScope(
         onWillPop: () => _goBack(context),
         child: Scaffold(
+            drawer: Drawer(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset('assets/splash.png'),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await launch('https://github.com/RamG222');
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Share'),
+                      ),
+                      SizedBox(height: 20)
+                    ],
+                  ),
+                  FilledButton.tonal(
+                      child: Text('Refresh'),
+                      onPressed: () {
+                        webViewController.reload();
+                        Navigator.of(context).pop();
+                      }),
+                  SizedBox(height: 20),
+                  FilledButton(
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                      child: Text('Quit')),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: FilledButton.tonal(
+                        onPressed: () {
+                          Restart.restartApp();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(Icons.restart_alt_rounded),
+                            Text('Restart whole app')
+                          ],
+                        )),
+                  )
+                ],
+              ),
+            ),
             appBar: AppBar(
               title: const Text('Flutter webview appBar'),
             ),
