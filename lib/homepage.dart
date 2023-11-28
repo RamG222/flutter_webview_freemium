@@ -17,15 +17,18 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  //initialize controller
   late WebViewController webViewController;
 
   bool netState = false;
   @override
   void initState() {
     super.initState();
+    //checking internet connection
     checkInternetConnection();
   }
 
+  //method for Checking internet connection
   Future checkInternetConnection() async {
     final connectionStatus = await (Connectivity().checkConnectivity());
     if (connectionStatus == ConnectivityResult.none) {
@@ -42,91 +45,102 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      //pop scope for exit dialog
       child: WillPopScope(
         onWillPop: () => _goBack(context),
         child: Scaffold(
-            drawer: Drawer(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset('assets/splash.png'),
-                      SizedBox(
-                        height: 100,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await launch('https://github.com/RamG222');
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('Share'),
-                      ),
-                      SizedBox(height: 20)
-                    ],
-                  ),
-                  FilledButton.tonal(
-                      child: Text('Refresh'),
-                      onPressed: () {
-                        webViewController.reload();
-                        Navigator.of(context).pop();
-                      }),
-                  SizedBox(height: 20),
-                  FilledButton(
-                      onPressed: () {
-                        SystemNavigator.pop();
-                      },
-                      child: Text('Quit')),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
-                    child: FilledButton.tonal(
-                        onPressed: () {
-                          Restart.restartApp();
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.restart_alt_rounded),
-                            Text('Restart whole app')
-                          ],
-                        )),
-                  )
-                ],
-              ),
-            ),
-            appBar: AppBar(
-              title: const Text('Flutter webview appBar'),
-            ),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  webViewController.reload();
-                },
-                child: const Icon(Icons.refresh)),
-            body: Stack(
+          //left drawer
+          drawer: Drawer(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (netState)
-                  WebView(
-                    initialUrl: url,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    backgroundColor: Colors.white,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      this.webViewController = webViewController;
+                Column(
+                  children: [
+                    Image.asset('assets/splash.png'),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await launch('https://github.com/RamG222');
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Share'),
+                    ),
+                    SizedBox(height: 20)
+                  ],
+                ),
+                FilledButton.tonal(
+                    child: Text('Refresh'),
+                    onPressed: () {
+                      webViewController.reload();
+                      Navigator.of(context).pop();
+                    }),
+                SizedBox(height: 20),
+                FilledButton(
+                    onPressed: () {
+                      SystemNavigator.pop();
                     },
-                    navigationDelegate: (NavigationRequest request) {
-                      if (request.url.startsWith(url)) {
-                        return NavigationDecision.navigate;
-                      } else {
-                        _launchURL(request.url);
-                        return NavigationDecision.prevent;
-                      }
-                    },
-                  )
-                else
-                  const NoInternetWidget(),
+                    child: Text('Quit')),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: FilledButton.tonal(
+                      onPressed: () {
+                        Restart.restartApp();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(Icons.restart_alt_rounded),
+                          Text('Restart whole app')
+                        ],
+                      )),
+                )
               ],
-            )),
+            ),
+          ),
+
+          //AppBar
+          appBar: AppBar(
+            title: const Text('Flutter webview appBar'),
+          ),
+          //Floating refresh button
+          floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                webViewController.reload();
+              },
+              child: const Icon(Icons.refresh)),
+          body: Stack(
+            children: [
+              //checks for internet connection
+              if (netState)
+                //main webview widget
+                WebView(
+                  initialUrl: url,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  // you can also remove headers/foots using javascript
+                  backgroundColor: Colors.white,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    this.webViewController = webViewController;
+                  },
+                  navigationDelegate: (NavigationRequest request) {
+                    if (request.url.startsWith(url)) {
+                      return NavigationDecision.navigate;
+                    } else {
+                      //launch url in Browser (outside app)
+                      _launchURL(request.url);
+                      return NavigationDecision.prevent;
+                    }
+                  },
+                )
+              else
+                //show when no internet connction found
+                const NoInternetWidget(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -163,6 +177,7 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+//method for launching external url
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  //initialize firebase for push notifications
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,6 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    // initializing push notifications service (ask for permissions)
     setupPushNotifications();
     super.initState();
   }
@@ -31,6 +33,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //Theme data can be used to change whole app coloring scheme,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromRGBO(88, 111, 124, 100)),
@@ -38,17 +41,18 @@ class _MyAppState extends State<MyApp> {
             seedColor: const Color.fromRGBO(174, 209, 230, 100)),
         useMaterial3: true,
       ),
+
+      //splash screen
       home: EasySplashScreen(
         navigator: const Homepage(),
-        logoWidth: 300,
+        logoWidth: 200,
         logo: Image.asset('assets/splash.png'),
+        showLoader: false,
         durationInSeconds: 4,
         loadingText: const Text(
           "Made by Ram Gupta!",
           style: TextStyle(color: Colors.blueGrey),
         ),
-        loaderColor: Colors.blue,
-        showLoader: true,
       ),
     );
   }

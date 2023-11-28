@@ -9,6 +9,7 @@ class NoInternetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //returns a widget when there is no internet conncetion
     return const Center(
       child: Text('NO INTERNET CONNCETION'),
     );
