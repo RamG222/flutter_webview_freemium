@@ -16,4 +16,12 @@ also to modify "no internet" file, just make changes in "No_Internet_widget.dart
 here i have used truegst.in as url for homepage. to change you can just change value in "constant.dart" file
 
 ## Screenshots
+asking for notification permission
+
+![Simulator Screenshot - iPhone 15 Pro - 2023-11-29 at 23 49 34](https://github.com/RamG222/webview/assets/109546887/4edfb216-b888-4925-a34e-2cfd492f834f)
+
+Drawer screen
+![Simulator Screenshot - iPhone 15 Pro - 2023-11-29 at 23 49 40](https://github.com/RamG222/webview/assets/109546887/008519ae-c1da-4e84-a780-7a1b0b04e466)
+
+
 
