@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:asdf/No_Internet_widget.dart';
-import 'package:asdf/constants.dart';
+import './No_Internet_widget.dart';
+import './constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

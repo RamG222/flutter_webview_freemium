@@ -1,8 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:asdf/homepage.dart';
+import './homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:restart_app/restart_app.dart';
 
 class NoInternetWidget extends StatelessWidget {
   const NoInternetWidget({

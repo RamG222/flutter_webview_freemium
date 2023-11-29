@@ -1,6 +1,6 @@
-import 'package:asdf/firebase_notification_api/firebase_notifications_api.dart';
-import 'package:asdf/firebase_options.dart';
-import 'package:asdf/homepage.dart';
+import './firebase_notification_api/firebase_notifications_api.dart';
+import './firebase_options.dart';
+import './homepage.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
