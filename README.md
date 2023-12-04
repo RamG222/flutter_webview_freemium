@@ -11,6 +11,8 @@ This project is made in dart language using flutter framework, This repo will co
 just make changes in "constants.dart" file so you don't have to look at code,
 to configure push notification, install flutterFire CLI and run command "flutterfire configure", and follow instructions in terminal, it will automatically setup notifications,
 also to modify "no internet" file, just make changes in "No_Internet_widget.dart" file.
+![constants dart](https://github.com/RamG222/flutter_webview_freemium/assets/109546887/3b16b8cb-117c-4e3b-b6f2-c2df15090fd1)
+
 
 ## Dependencies used
 
