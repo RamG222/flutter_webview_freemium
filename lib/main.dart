@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         logoWidth: 200,
         logo: Image.asset('assets/splash.png'),
         showLoader: false,
-        durationInSeconds: 4,
+        durationInSeconds: 2,
         loadingText: const Text(
           "Made by Ram Gupta!",
           style: TextStyle(color: Colors.blueGrey),

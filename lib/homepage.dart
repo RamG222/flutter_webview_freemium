@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import './No_Internet_widget.dart';
 import './constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
