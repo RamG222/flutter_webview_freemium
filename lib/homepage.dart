@@ -25,6 +25,22 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     //checking internet connection
     checkInternetConnection();
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.white)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith(url)) {
+              return NavigationDecision.navigate;
+            } else {
+              _launchURL(request.url); // open in external browser
+              return NavigationDecision.prevent;
+            }
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(url));
   }
 
   //method for Checking internet connection
@@ -115,25 +131,7 @@ class _HomepageState extends State<Homepage> {
             children: [
               //checks for internet connection
               if (netState)
-                //main webview widget
-                WebView(
-                  initialUrl: url,
-                  javascriptMode: JavascriptMode.unrestricted,
-                  // you can also remove headers/foots using javascript
-                  backgroundColor: Colors.white,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    this.webViewController = webViewController;
-                  },
-                  navigationDelegate: (NavigationRequest request) {
-                    if (request.url.startsWith(url)) {
-                      return NavigationDecision.navigate;
-                    } else {
-                      //launch url in Browser (outside app)
-                      _launchURL(request.url);
-                      return NavigationDecision.prevent;
-                    }
-                  },
-                )
+                WebViewWidget(controller: webViewController)
               else
                 //show when no internet connction found
                 const NoInternetWidget(),
